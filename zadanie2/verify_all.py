@@ -7,13 +7,13 @@ import time
 
 def run_verification_for_all_files(executable):
     exec_name = os.path.splitext(os.path.basename(executable))[0]
-    number = re.search(r'\d+', exec_name).group()  
+    number = '151788'
     
     with open('end.csv', 'a', newline='') as csvfile:
         csv_writer = csv.writer(csvfile, delimiter=';')
         
         for i in range(50, 501, 50):
-            input_file = f'in_{number}_{i}.txt'
+            input_file = f'instancje/in_{number}_{i}.txt'
             output_file = f'out_{number}_{i}.txt'
             exec_output_file = f'out_{exec_name}_{i}.txt'
             
@@ -21,7 +21,7 @@ def run_verification_for_all_files(executable):
                 print(f"Running verification for {input_file}")
                 try:
                     start_time = time.time()
-                    command = ['python', 'weryfikator_czasu.py', executable, input_file, output_file, str(i//10)]
+                    command = ['python3', 'weryfikator_czasu.py', executable, input_file, output_file, str(i//10)]
                     print(f"Executing command: {' '.join(command)}")
                     result = subprocess.run(
                         command,
@@ -38,7 +38,7 @@ def run_verification_for_all_files(executable):
                     else:
                         print(f"Verification completed for {input_file}.")
                         print(f"Output: {result.stdout}")
-                        exec_command = ['python', 'weryfikator.py', input_file, output_file]
+                        exec_command = ['python3', 'weryfikator.py', input_file, output_file]
                         exec_result = subprocess.run(
                             exec_command,
                             capture_output=True,
